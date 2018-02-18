@@ -1,27 +1,28 @@
 import React, {Component} from 'react';
 import {reduxForm, Field} from 'redux-form';
 import {connect} from 'react-redux';
-import * as actions from '../../actions';
+import * as actions from '../actions';
 
 
-class Signin extends Component {
-  componentWillMount() {
-    this.props.clearError();
-  }
-  
-  handleFormSubmit({email, password}) {
-    this.props.signinUser({email, password}, this.props.history);
+class NewPoll extends Component {
+  handleFormSubmit({title, options}) {
+    this.props.createNewPoll({title, options: options.split("\n")}, this.props.history);
   }
   
   renderField(field) {
     return (
       <div className="form-group">
         <label>{field.label}</label>
-        <input
+        {field.input.name === 'title'? <input
           className="form-control"
-          type={field.input.name === "password" ? "password" : "text"}
+          type={"text"}
           {...field.input}
-        />
+        /> :
+        <textarea
+          className="form-control"
+          rows="5"
+          {...field.input}
+        />}
       </div>
     );
   }
@@ -41,23 +42,25 @@ class Signin extends Component {
     
     return (
       <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-        <Field name='email' label='Email' component={this.renderField} />
-        <Field name='password' label='Password' component={this.renderField} />
+        <Field name='title' label='Title' component={this.renderField} />
+        <Field name='options' label='Options (seperated by line)' component={this.renderField} />
         {this.renderAlert()/*for rendering an error message*/}
-        <button type="submit" className="btn btn-primary">Sign in</button>
+        <button type="submit" className="btn btn-primary">Submit</button>
       </form>
     );
   }
 }
 
+
 function mapStateToProps(state) {
   return {errorMessage: state.auth.error};
 }
 
+
 export default reduxForm({
   form: 'signin' // just an identifier for this form
 })(
-  connect(mapStateToProps, {...actions})(Signin)
+  connect(mapStateToProps, {...actions})(NewPoll)
 );
 
 

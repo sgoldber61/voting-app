@@ -9,9 +9,11 @@ import App from './components/app';
 import Signin from './components/auth/signin';
 import Signout from './components/auth/signout';
 import Signup from './components/auth/signup';
-import Feature from './components/feature';
 import RequireAuth from './components/auth/require_auth';
-import Welcome from './components/welcome';
+import Polls from './components/polls';
+import MyPolls from './components/my_polls';
+import NewPoll from './components/new_poll';
+import Poll from './components/poll';
 import reducers from './reducers';
 import {AUTH_USER} from './actions/types';
 
@@ -35,8 +37,10 @@ ReactDOM.render(
           <Route path="/signin" component={Signin} />
           <Route path="/signout" component={Signout} />
           <Route path="/signup" component={Signup} />
-          <Route path="/feature" component={RequireAuth(Feature)} />
-          <Route path="/" component={Welcome} />
+          <Route path="/mypolls" component={RequireAuth(MyPolls)} />
+          <Route path="/newpoll" component={RequireAuth(NewPoll)} />
+          <Route path="/polls/:pollid" component={Poll} />
+          <Route path="/" component={Polls} />
         </Switch>
       </App>
     </BrowserRouter>

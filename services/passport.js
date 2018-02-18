@@ -12,7 +12,7 @@ const localLogin = new LocalStrategy(localOptions, function(email, password, don
   // if it is the correct email and password
   // otherwise, call done with false
   
-  User.findOne({email: email}, function(err, user) {
+  User.findOne({email: email}, function(err, user) { // use mongoose to find the email
     if (err) {
       return done(err);
     }
@@ -29,7 +29,7 @@ const localLogin = new LocalStrategy(localOptions, function(email, password, don
       
       return done(null, user);
     });
-  }); // use mongoose to find the email
+  });
   
 });
 

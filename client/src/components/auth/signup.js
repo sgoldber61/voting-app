@@ -5,6 +5,10 @@ import * as actions from '../../actions';
 
 
 class Signup extends Component {
+  componentWillMount() {
+    this.props.clearError();
+  }
+  
   handleFormSubmit(values) {
     // Call action creator to sign up the user
     this.props.signupUser(values, this.props.history);
@@ -14,7 +18,7 @@ class Signup extends Component {
     if (this.props.errorMessage) {
       return (
         <div className="alert alert-danger">
-          <strong>Oops!</strong> {this.props.errorMessage}
+          <strong>Error!</strong> {this.props.errorMessage}
         </div>
       );
     }
