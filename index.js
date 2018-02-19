@@ -10,7 +10,7 @@ const cors = require('cors');
 
 
 // DB Setup
-mongoose.connect('mongodb://localhost:27017/voting');
+mongoose.connect(process.env.MONGODB_URL);
 
 
 // App setup
