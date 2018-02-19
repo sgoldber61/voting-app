@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {AUTH_USER, DEAUTH_USER, AUTH_ERROR, CLEAR_ERROR, FETCH_DATA, FETCH_USER_DATA, FETCH_POLL_DATA, POST_DATA, VOTE_POLL, DATA_ERROR, CLEAR_POLL} from './types';
 
-const ROOT_URL = 'http://localhost:3090';
+const ROOT_URL = 'http://localhost:3090'; // to be changed...
 
 export function signinUser({email, password}, history) {
   // redux-thunk allows us to return a function from our action creator
