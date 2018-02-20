@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "homepage": "https://sgoldber61.github.io/voting-app",
   "scripts": {
+    "predeploy": "npm start",
+    "deploy": "gh-pages -d build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client && npm run build",
     "server": "nodemon index.js",
@@ -18,6 +21,7 @@
     "concurrently": "^3.5.1",
     "cors": "^2.8.4",
     "express": "^4.16.2",
+    "gh-pages": "^1.1.0",
     "jwt-simple": "^0.5.1",
     "mongoose": "^5.0.1",
     "morgan": "^1.9.0",
