@@ -5,12 +5,13 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const app = express();
 const router = require('./router');
+const config = require('./config');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
 
 // DB Setup
-mongoose.connect(process.env.MONGODB_URL);
+mongoose.connect(config.mongodbUrl);
 
 
 // App setup
