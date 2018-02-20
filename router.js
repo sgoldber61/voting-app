@@ -9,11 +9,6 @@ const requireSignin = passport.authenticate('local', {session: false});
 
 
 module.exports = function(app) {
-  // leftover from react-redux tutorial
-  app.get('/', requireAuth, function(req, res) {
-    res.send({message: "Super secret code is ABC123"});
-  });
-  
   // authentication operations
   app.post('/signin', requireSignin, AuthenticationOperations.signin);
   app.post('/signup', AuthenticationOperations.signup);
