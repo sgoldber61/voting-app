@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://sgoldber61.github.io/voting-app",
   "scripts": {
     "predeploy": "npm start",
     "deploy": "gh-pages -d build",
