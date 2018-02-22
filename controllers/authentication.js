@@ -1,11 +1,10 @@
 const jwt = require('jwt-simple');
 const User = require('../models/user'); // Mongoose model
-const config = require('../config');
 
 
 function tokenForUser(user) {
   const timestamp = new Date().getTime();
-  return jwt.encode({sub: user.id, iat: timestamp}, config.secret);
+  return jwt.encode({sub: user.id, iat: timestamp}, process.env.secret);
 }
 
 
