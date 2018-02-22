@@ -63,7 +63,7 @@ class Poll extends Component {
     const {handleSubmit} = this.props; // this.props comes from redux form
     
     return (
-      <div className='col-md-10 col-md-offset-1' style={{borderStyle: 'solid'}}>
+      <div className='col-md-10 col-md-offset-1'>
         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
           <div className='col-md-4'><Field name="option" component="select">
             <option/>
@@ -94,7 +94,7 @@ class Poll extends Component {
     };
     
     return (
-      <div className={'col-md-10 col-md-offset-1'} style={{borderStyle: 'solid'}}>
+      <div className={'col-md-10 col-md-offset-1'}>
         <Doughnut
           data={chartData}
         />
@@ -104,7 +104,7 @@ class Poll extends Component {
   
   render() {
     return (
-      <div className={'row'} style={{borderStyle: 'solid'}}>
+      <div className={'row'}>
         {this.renderPoll()}
         {this.renderForm()}
         {this.renderError()}
