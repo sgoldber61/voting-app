@@ -1,5 +1,5 @@
 import axios from 'axios';
-import config from '../../../config.js';
+import config from '../config.js';
 import {AUTH_USER, DEAUTH_USER, AUTH_ERROR, CLEAR_ERROR, FETCH_DATA, FETCH_USER_DATA, FETCH_POLL_DATA, POST_DATA, VOTE_POLL, DATA_ERROR, CLEAR_POLL} from './types';
 
 const ROOT_URL = config.appUrl || 'http://localhost:3090';

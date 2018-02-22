@@ -8,7 +8,9 @@
     "client": "cd client && npm run build",
     "server": "nodemon index.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "start": "npm run dev"
+    "prod": "node index.js",
+    "web": "npm run client && npm run prod",
+    "start": "npm run web"
   },
   "author": "sgoldber61",
   "license": "ISC",
