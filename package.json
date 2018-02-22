@@ -20,6 +20,7 @@
     "body-parser": "^1.18.2",
     "concurrently": "^3.5.1",
     "cors": "^2.8.4",
+    "dotenv": "^5.0.0",
     "express": "^4.16.2",
     "gh-pages": "^1.1.0",
     "jwt-simple": "^0.5.1",
@@ -33,4 +34,3 @@
     "shortid": "^2.2.8"
   }
 }
-

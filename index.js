@@ -1,4 +1,5 @@
 // Main starting point of the application
+const dotenv = require('dotenv').config();
 const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser');
@@ -7,7 +8,6 @@ const app = express();
 const router = require('./router');
 const mongoose = require('mongoose');
 const cors = require('cors');
-
 
 // DB Setup
 mongoose.connect(process.env.mongodbUrl);
