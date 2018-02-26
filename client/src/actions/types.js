@@ -9,4 +9,5 @@ export const POST_DATA = 'post_data';
 export const VOTE_POLL = 'vote_poll';
 export const DATA_ERROR = 'data_error';
 export const CLEAR_POLL = 'clear_poll';
+export const DELETE_POLL = 'delete_poll';
 

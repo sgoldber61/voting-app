@@ -130,7 +130,15 @@ exports.getPollData = function(req, res, next) {
       return res.status(422).send({error: "Poll does not exist"});
     }
     
-    return res.json(pollData);
+    if (req.user) {
+      const email = req.user.email;
+      const myPollQ = (email === pollData.email);
+      
+      return res.json(Object.assign(pollData.toObject(), {myPollQ: myPollQ}));
+    }
+    else {
+      return res.json(pollData);
+    }
   }, function(err) {
     return next(err);
   });

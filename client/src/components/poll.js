@@ -29,7 +29,8 @@ class Poll extends Component {
     const pathname = this.props.location.pathname;
     this.pollId = pathname.substring(pathname.lastIndexOf('/') + 1);
     
-    this.props.getPollData(this.pollId);
+    // getting poll data will be different depending on whether or not we are authenticated
+    this.props.getPollData(this.pollId, this.props.authenticated);
   }
   
   handleFormSubmit({option}) {
@@ -37,6 +38,10 @@ class Poll extends Component {
       return;
     
     this.props.voteOnPoll({pollId: this.pollId, option: option}, this.context.router.history);
+  }
+  
+  handlePollDelete() {
+    this.props.deletePoll({pollId: this.pollId}, this.context.router.history);
   }
   
   renderError() {
@@ -47,6 +52,16 @@ class Poll extends Component {
         </div>
       );
     }
+  }
+  
+  deleteButton() {
+    if (!this.props.pollData || !this.props.pollData.myPollQ) {
+      return null;
+    }
+    
+    return (
+      <button className="btn btn-danger btn-block" onClick={this.handlePollDelete.bind(this)}>Delete Poll</button>
+    );
   }
   
   renderForm() {
@@ -65,16 +80,20 @@ class Poll extends Component {
     return (
       <div className='col-md-10 col-md-offset-1'>
         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-          <div className='col-md-4'><Field name="option" component="select">
-            <option/>
-            {pollData.options.map((option, index) => {
-              return <option value={option.name} key={index}>{option.name}</option>
-            })}
-          </Field>
+          <div className='col-md-4'>
+            <Field name="option" component="select">
+              <option/>
+              {pollData.options.map((option, index) => {
+                return <option value={option.name} key={index}>{option.name}</option>
+              })}
+            </Field>
             <button type='submit' className="btn btn-primary btn-block">Submit</button>
-            <a target="_blank" href={`https://twitter.com/intent/tweet?url=https%3A%2F%2Ftesting-app.com%2Fpolls%2F${this.pollId}&text=${pollData.title} %7C Voting App`} className="btn btn-info btn-block"><i class="fa fa-twitter"></i> Share on Twitter</a>
           </div>
         </form>
+        <div className='col-md-4'>
+          <a target="_blank" href={`https://twitter.com/intent/tweet?url=https%3A%2F%2Ftesting-app.com%2Fpolls%2F${this.pollId}&text=${pollData.title} %7C Voting App`} className="btn btn-info btn-block"><i class="fa fa-twitter"></i> Share on Twitter</a>
+          {this.deleteButton()}
+        </div>
       </div>
     );
   }

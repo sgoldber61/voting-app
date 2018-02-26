@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {AUTH_USER, DEAUTH_USER, AUTH_ERROR, CLEAR_ERROR, FETCH_DATA, FETCH_USER_DATA, FETCH_POLL_DATA, POST_DATA, VOTE_POLL, DATA_ERROR, CLEAR_POLL} from './types';
+import {AUTH_USER, DEAUTH_USER, AUTH_ERROR, CLEAR_ERROR, FETCH_DATA, FETCH_USER_DATA, FETCH_POLL_DATA, POST_DATA, VOTE_POLL, DATA_ERROR, CLEAR_POLL, DELETE_POLL} from './types';
 
 const ROOT_URL = process.env.REACT_APP_appUrl || 'http://localhost:3090';
 
@@ -12,7 +12,7 @@ export function signinUser({email, password}, history) {
         // If request is good...
         
         // - Update state to indicate user is authenticated
-        dispatch({type: AUTH_USER});
+        dispatch({type: AUTH_USER, payload: email});
         
         // - Save the JWT token
         localStorage.setItem('token', response.data.token);
@@ -34,7 +34,7 @@ export function signupUser({email, password}, history) {
   return function(dispatch) {
     axios.post(`${ROOT_URL}/signup`, {email, password})
       .then(response => {
-        dispatch({type: AUTH_USER});
+        dispatch({type: AUTH_USER, payload: email});
         localStorage.setItem('token', response.data.token);
         history.push('/');
       })
@@ -102,9 +102,13 @@ export function fetchUserPolls() {
 }
 
 
-export function getPollData(pollId) {
+export function getPollData(pollId, authQ) {
+  const route = (authQ ? 'get-poll-data-auth' : 'get-poll-data');
+  
   return function(dispatch) {
-    axios.get(`${ROOT_URL}/get-poll-data/${pollId}`)
+    axios.get(`${ROOT_URL}/${route}/${pollId}`, {
+      headers: (authQ ? {authorization: localStorage.getItem('token')} : null)
+    })
       .then(response => {
         dispatch({
           type: FETCH_POLL_DATA,
@@ -167,5 +171,25 @@ export function clearPoll() {
   return {
     type: CLEAR_POLL
   };
+}
+
+
+export function deletePoll({pollId}, history) {
+  return function(dispatch) {
+    axios.delete(`${ROOT_URL}/delete-poll`, {
+      headers: {authorization: localStorage.getItem('token')},
+      data: {pollId: pollId}
+    })
+      .then(response => {
+        dispatch({
+          type: DELETE_POLL
+        });
+        
+        history.push('/');
+      })
+      .catch(error => {
+        dispatch(dataError(error));
+      });
+  }
 }
 

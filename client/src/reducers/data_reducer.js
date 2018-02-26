@@ -6,7 +6,8 @@ import {
   POST_DATA,
   VOTE_POLL,
   DATA_ERROR,
-  CLEAR_POLL
+  CLEAR_POLL,
+  DELETE_POLL
 } from '../actions/types';
 
 
@@ -21,13 +22,18 @@ export default function(state = {}, action) {
     case POST_DATA:
       return {...state};
     case VOTE_POLL:
-      return {...state, pollData: action.payload};
+      const pollData = action.payload;
+      const myPollQ = state.pollData.myPollQ;
+      return {...state, pollData: Object.assign(pollData, {myPollQ})};
     case DATA_ERROR:
       return {...state, error: action.payload};
     case CLEAR_POLL:
+      return {...state, error: '', pollData: null};
+    case DELETE_POLL:
       return {...state, error: '', pollData: null};
     default:
       return state;
   }
 }
+
 

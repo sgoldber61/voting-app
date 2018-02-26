@@ -23,6 +23,7 @@ module.exports = function(app) {
   app.get('/get-polls', PollOperations.getPolls);
   app.get('/get-user-polls', requireAuth, PollOperations.getUserPolls);
   app.get('/get-poll-data/:pollId', PollOperations.getPollData);
+  app.get('/get-poll-data-auth/:pollId', requireAuth, PollOperations.getPollData);
   
   app.use('/', express.static(`${__dirname}/client/build`));
   
